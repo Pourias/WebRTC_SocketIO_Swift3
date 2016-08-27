@@ -59,7 +59,7 @@ class ViewController: UIViewController, RTCSessionDescriptionDelegate, RTCPeerCo
         
         var device: AVCaptureDevice! = nil
         for captureDevice in AVCaptureDevice.devices(withMediaType: AVMediaTypeVideo) {
-            if (captureDevice.position == AVCaptureDevicePosition.front) {
+            if ((captureDevice as AnyObject).position == AVCaptureDevicePosition.front) {
                 device = captureDevice as! AVCaptureDevice
             }
         }
@@ -182,12 +182,12 @@ class ViewController: UIViewController, RTCSessionDescriptionDelegate, RTCPeerCo
         if (candidate != nil) {
             Log(value: "iceCandidate: " + candidate.description)
             let json:[String: AnyObject] = [
-                "type" : "candidate",
-                "sdpMLineIndex" : candidate.sdpMLineIndex,
-                "sdpMid" : candidate.sdpMid,
-                "candidate" : candidate.sdp
+                "type" : "candidate" as AnyObject,
+                "sdpMLineIndex" : candidate.sdpMLineIndex as AnyObject,
+                "sdpMid" : candidate.sdpMid as AnyObject,
+                "candidate" : candidate.sdp as AnyObject
             ]
-            sigSend(msg: json)
+            sigSend(msg: json as NSDictionary)
         } else {
             Log(value: "End of candidates. -------------------")
         }
@@ -231,10 +231,10 @@ class ViewController: UIViewController, RTCSessionDescriptionDelegate, RTCPeerCo
     }
     func sendSDP(sdp:RTCSessionDescription) {
         let json:[String: AnyObject] = [
-            "type" : sdp.type,
-            "sdp"  : sdp.description
+            "type" : sdp.type as AnyObject,
+            "sdp"  : sdp.description as AnyObject
         ]
-        sigSend(msg: json);
+        sigSend(msg: json as NSDictionary);
     }
     func sendOffer() {
         peerConnection = prepareNewConnection();
@@ -264,9 +264,9 @@ class ViewController: UIViewController, RTCSessionDescriptionDelegate, RTCPeerCo
     }
     func sendDisconnect() {
         let json:[String: AnyObject] = [
-            "type" : "user disconnected"
+            "type" : "user disconnected" as AnyObject
         ]
-        sigSend(msg: json);
+        sigSend(msg: json as NSDictionary);
     }
 
     func peerConnection(_ peerConnection: RTCPeerConnection!, didSetSessionDescriptionWithError error: Error!) {

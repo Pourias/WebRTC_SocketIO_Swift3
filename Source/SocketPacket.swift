@@ -51,13 +51,11 @@ struct SocketPacket {
     
     var description: String {
         return "SocketPacket {type: \(String(type.rawValue)); data: " +
-            "\(String(data)); id: \(id); placeholders: \(placeholders); nsp: \(nsp)}"
+            "\(String(describing: data)); id: \(id); placeholders: \(placeholders); nsp: \(nsp)}"
     }
     
     var event: String {
-        return String(data[0])
-            
-       //Pouria     String(describing: data[0])
+        return String(describing: data[0])
     }
     
     var packetString: String {
